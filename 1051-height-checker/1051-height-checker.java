@@ -10,29 +10,23 @@ class Solution {
 
         // doing insertion sort
         for (int i = 1; i < expected.length; i++) {
-            int x = expected[i];
+            int key = expected[i];
+            
             int j = i - 1;
-            while(true) {
-                if(j == -1) {
-                    expected[0] = x;
-                    break;
-                }
-                
-                if (expected[j] > x) {
-                    expected[j + 1] = expected[j];
-                } else {
-                    expected[j + 1] = x;
-                    break;
-                }
+
+            while (j >= 0 && expected[j] > key) {
+                expected[j + 1] = expected[j];
                 j--;
             }
+
+            expected[j + 1] = key;
         }
 
-        for (int i = 0; i < expected.length; i++) {
-            System.out.print(expected[i] + " ");
-        }
-        
-       System.out.println();
+        //         for (int i = 0; i < expected.length; i++) {
+        //             System.out.print(expected[i] + " ");
+        //         }
+
+        //        System.out.println();
 
         int count = 0;
         for (int i = 0; i < heights.length; i++) {

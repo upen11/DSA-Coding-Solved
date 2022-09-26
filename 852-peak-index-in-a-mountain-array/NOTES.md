@@ -1,0 +1,1 @@
+here I am having trouble with the last index because I am comparing mid with mid-1 and mid+1. doing end  = arr.length - 2. will not help.

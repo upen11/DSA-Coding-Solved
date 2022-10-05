@@ -14,6 +14,6 @@ class Solution {
             }
         }
 
-        return len + 1;
+        return len + 1; // [2,1]
     }
 }

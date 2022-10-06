@@ -8,7 +8,6 @@ class Solution {
         
         // starting from last of array number
         for (int i = number.length - 1; i >= 0; i--) {
-            System.out.println(num);
             if (num > 0) {
                 while (num >= number[i]) {
                     sb.append(roman[i]);

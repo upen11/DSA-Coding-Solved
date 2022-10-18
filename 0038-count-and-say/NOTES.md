@@ -1,7 +1,7 @@
-In the while I have used count(String s). where s is the answer of n=2. Thats why while is starting from x == 3 till n.
+In the for loop I have used count(String ans). where ans is the answer of n=1. Thats why for is starting from x = 2 till n.
 ​
-Inside while I am storing answer in s only to give input s.
-But storing in ans to return as answer of question.
+Inside for I am storing answer in ans only to give input ans.
+ans will return the answer of question also.
 ​
 In count(String num) method I am simply counting the same consecutive number and then printing the character after it, but the comparison will stop after n-1 and n comparison at nth charachter.
 That's why I am appending the last character in the string later.

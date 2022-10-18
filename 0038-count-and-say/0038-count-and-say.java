@@ -9,10 +9,10 @@ class Solution {
             return "11";
         }
         
-        String s = count("11");
-        
+        String s = "11";
         String ans = s;
-        int x = 3;
+        
+        int x = 2;
         while(++x <= n) {
             s = count(s);
             ans = s;

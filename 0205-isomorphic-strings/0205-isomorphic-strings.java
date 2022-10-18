@@ -35,8 +35,8 @@ class Solution {
             }
         }
         
-        System.out.println(mapS);
-        System.out.println(mapT);
+        // System.out.println(mapS);
+        // System.out.println(mapT);
         
         return true;
     }

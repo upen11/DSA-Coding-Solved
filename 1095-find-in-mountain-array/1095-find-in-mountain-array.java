@@ -15,14 +15,10 @@ class Solution {
 
         int peak = peak(mountainArr, start, end);
         int idx1 = searchFirstHalf(mountainArr, target, start, peak);
-        int idx2 = searchSecondHalf(mountainArr, target, peak, end);
+        if (idx1 != -1) return idx1;
 
-        if(idx1 == -1) {
-            return idx2;
-        }
-        else {
-            return idx1;
-        }
+        int idx2 = searchSecondHalf(mountainArr, target, peak, end);
+        return idx2;
     }
 
     public static int peak(MountainArray mountainArr, int start, int end) {
@@ -66,7 +62,7 @@ class Solution {
     public static int searchSecondHalf(MountainArray mountainArr, int target, int start, int end) {
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            
+
             int midVal = mountainArr.get(mid);
 
             if (midVal == target) {

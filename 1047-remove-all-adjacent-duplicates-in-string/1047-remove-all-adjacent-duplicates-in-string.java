@@ -4,9 +4,9 @@ class Solution {
         if (s == "") return "";
 
         Stack<Character> stack = new Stack<>();
-        stack.push(s.charAt(0));
+        // stack.push(s.charAt(0));
 
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (stack.isEmpty() || stack.peek() != ch) stack.push(ch); else stack.pop();
         }

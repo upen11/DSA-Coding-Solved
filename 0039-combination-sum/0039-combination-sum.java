@@ -18,15 +18,15 @@ class Solution {
         if(ind == arr.length || sum > target) return;
 
         
-        for(int i=ind; i<arr.length; i++) {
+        // for(int i=ind; i<arr.length; i++) {
             
-            ds.add(arr[i]);
-            sum += arr[i];
-            subsetSum(i, arr, target, sum, list, ds);
+            ds.add(arr[ind]);
+            sum += arr[ind];
+            subsetSum(ind, arr, target, sum, list, ds);
             ds.remove(ds.size()-1);
-            sum -= arr[i];
+            sum -= arr[ind];
             
-//             subsetSum(i+1, arr, target, sum, list, ds);
-        }
+            subsetSum(ind+1, arr, target, sum, list, ds);
+        // }
     }
 }

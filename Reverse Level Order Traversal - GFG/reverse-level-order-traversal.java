@@ -128,43 +128,87 @@ class Tree
 {
     public ArrayList<Integer> reverseLevelOrder(Node node) 
     {
-        // code here
-        HashMap<Integer, List<Integer>> hm = new HashMap<>();
+        Queue<Node> queue = new LinkedList<>();
         
-        helper(node, hm, 0);
+        if(node != null) {
+            queue.add(node);
+        }
+
+        Stack<Integer> stack = new Stack<>();
         
-        // List<Integer> list = new ArrayList<>();
+        while(!queue.isEmpty()) {
+            
+            int len = queue.size();
+            ArrayList<Integer> list = new ArrayList<>();
+            
+            for(int i=0; i<len; i++) {
+                
+                Node n = queue.poll();
+                
+                list.add(n.data);
+                
+                if(n.right != null) {       // right first 
+                    queue.add(n.right);
+                }
+                
+                if(n.left != null) {        // left
+                    queue.add(n.left);
+                }
+                
+            }
+            
+            // System.out.println(list);
+            
+            for(int i=0; i<list.size(); i++)
+                stack.push(list.get(i));
+        }
         
         ArrayList<Integer> res = new ArrayList<>();
         
-        // System.out.println(hm);
-        
-        for(int i=hm.size()-1; i>=0; i--) {
-            List<Integer> list = hm.get(i);
-            
-            for(int j=0; j<list.size(); j++) {
-                res.add(list.get(j));
-            }
+        while(!stack.isEmpty()) {
+            res.add(stack.pop());
         }
         
         return res;
     }
+}
+//     public ArrayList<Integer> reverseLevelOrder(Node node) 
+//     {
+//         // code here
+//         HashMap<Integer, List<Integer>> hm = new HashMap<>();
+        
+//         helper(node, hm, 0);
+        
+//         ArrayList<Integer> res = new ArrayList<>();
+        
+//         // System.out.println(hm);
+        
+//         for(int i=hm.size()-1; i>=0; i--) {
+//             List<Integer> list = hm.get(i);
+            
+//             for(int j=0; j<list.size(); j++) {
+//                 res.add(list.get(j));
+//             }
+//         }
+        
+//         return res;
+//     }
     
-    public void helper(Node node, HashMap<Integer, List<Integer>> hm, int lvl) {
+//     public void helper(Node node, HashMap<Integer, List<Integer>> hm, int lvl) {
         
-        if(node == null) return;
+//         if(node == null) return;
         
-        if(hm.containsKey(lvl)) {
-            List<Integer> list = hm.get(lvl);
-            list.add(node.data);
-            hm.put(lvl, list);
-        }
-        else {
-            List<Integer> list = new ArrayList<>();
-            list.add(node.data);
-            hm.put(lvl, list);
-        }
-            helper(node.left, hm, lvl+1);
-            helper(node.right, hm, lvl+1);
-    }
-}      
+//         if(hm.containsKey(lvl)) {
+//             List<Integer> list = hm.get(lvl);
+//             list.add(node.data);
+//             hm.put(lvl, list);
+//         }
+//         else {
+//             List<Integer> list = new ArrayList<>();
+//             list.add(node.data);
+//             hm.put(lvl, list);
+//         }
+//             helper(node.left, hm, lvl+1);
+//             helper(node.right, hm, lvl+1);
+//     }
+// }      

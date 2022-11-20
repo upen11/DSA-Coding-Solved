@@ -9,9 +9,9 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
 
-            if (ch >= '0' && ch <= '9') {
+            if (Character.isDigit(ch)) {
                 int nums = 0;
-                while (i < s.length() && (s.charAt(i) >= '0' && s.charAt(i) <= '9')) {
+                while (i < s.length() && (Character.isDigit(s.charAt(i)))) {
                     nums = nums * 10 + (s.charAt(i) - '0');
                     i++;
                 }
@@ -28,7 +28,7 @@ class Solution {
                 sum *= stack.pop(); // popping sign
                 sum += stack.pop(); // popping sum
             } else if (ch == '-') {
-                sign *= -1;
+                sign = -1;
             }
         }
 

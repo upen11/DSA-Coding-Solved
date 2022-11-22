@@ -8,34 +8,28 @@ class Solution {
             hm.put(nums1[i], i);
         }
 
+        // monotoneStack.push(nums2[nums2.length - 1]);
+
         for (int i = nums2.length - 1; i >= 0; i--) {
+            while (!monotoneStack.isEmpty() && nums2[i] > monotoneStack.peek()) {
+                int nge = monotoneStack.pop(); // next greater element
+
+                if (hm.containsKey(nums2[i])) {
+                    nums1[hm.get(nums2[i])] = nge;
+                }
+            }
+
             if (monotoneStack.isEmpty()) {
-                monotoneStack.push(nums2[i]);
-
-                if (hm.containsKey(nums2[i])) nums1[hm.get(nums2[i])] = -1;
-            } else if (nums2[i] > monotoneStack.peek()) {
-                while (!monotoneStack.isEmpty() && nums2[i] > monotoneStack.peek()) {
-                    monotoneStack.pop();
+                if (hm.containsKey(nums2[i])) {
+                    nums1[hm.get(nums2[i])] = -1;
                 }
-
-                if (!monotoneStack.isEmpty()) {
-                    if (hm.containsKey(nums2[i])) {
-                        nums1[hm.get(nums2[i])] = monotoneStack.peek();
-                    }
-                } else {
-                    if (hm.containsKey(nums2[i])) {
-                        nums1[hm.get(nums2[i])] = -1;
-                    }
-                }
-
-                monotoneStack.push(nums2[i]);
-            } else if (nums2[i] < monotoneStack.peek()) {
+            } else {
                 if (hm.containsKey(nums2[i])) {
                     nums1[hm.get(nums2[i])] = monotoneStack.peek();
                 }
-
-                monotoneStack.push(nums2[i]);
             }
+
+            monotoneStack.push(nums2[i]);
         }
 
         return nums1;

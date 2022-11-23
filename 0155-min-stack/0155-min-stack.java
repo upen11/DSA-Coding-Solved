@@ -1,57 +1,32 @@
 class MinStack {
-    
-    int[] stack;
-    int[] minStack;
-    int top;
-    int min;
+    Stack<Integer> stack = new Stack<>();
+    int min = Integer.MAX_VALUE;
 
-    public MinStack() {
-        this.stack = new int[100000];
-        this.minStack = new int[100000];
-        this.top = -1;
-        this.min = Integer.MAX_VALUE;
-    }
-    
-    public void push(int val) {
-        if(min > val) {
-            min = val;
+    public void push(int x) {
+        if (x <= min) {
+            stack.push(min);
+            min = x;
         }
+        stack.push(x);
         
-        if(top < stack.length) {
-            top++;
-            stack[top] = val;
-            minStack[top] = min;
-        }
-        else
-            System.out.println("Overflow");
+        // System.out.println(stack);
     }
-    
+
     public void pop() {
-        if(top != -1) {
-            top--;
-        }
-        
-        if(top == -1)   // then empty stack was having last value
-            min = Integer.MAX_VALUE;
-        else
-            min = minStack[top];
+        if (stack.peek() == min) {
+            stack.pop();
+            min = stack.pop();
+        } else stack.pop();
     }
-    
+
     public int top() {
-        if(top != -1)
-            return stack[top];
-        
-        return -1;
+        return stack.peek();
     }
-    
+
     public int getMin() {
-        if(top != -1) {
-            return minStack[top];
-        }
-        return -1;
+        return min;
     }
 }
-
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack();

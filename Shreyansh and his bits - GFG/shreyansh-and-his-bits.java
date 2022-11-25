@@ -31,39 +31,41 @@ class GFG
 //User function Template for Java
 
 class Solution{
-    long arr[][];
+    
+    long[][] arr;
     long count(long n)
     {
-        // Code Here
-        arr= new long[40][40];
-        for(int i=0;i<40; i++)
-        Arrays.fill(arr[i],-1);
+        arr = new long[40][40];
         
-        int one =0;//count of 1;
-        int bor = 0; // bits on right;
+        for(int i=0; i<arr.length; i++) {
+            Arrays.fill(arr[i], -1);
+        }
         
-        long ans=0;
-        while(n>0)
-        {
-            if((n&1L)!=0)
-            {
+        int one = 0; // no. of 1's
+        int bor = 0; // bits on the right
+        long ans = 0;
+        while(n != 0) {
+            if(n % 2 == 1) {
                 one++;
-                ans+= ncr(bor, one); //query - get in O(1)
+                ans += ncr(bor, one);   // combinations of 1 on the places on the right  _ _ _
             }
-            n/=2;
+            
+            n = n / 2;
             bor++;
         }
+        
         return ans;
     }
-    long ncr(int n, int r)
-    {
-        if(r>n) return 0;
+    
+    long ncr(int n, int r) {
         if(r==0 || n==r) return 1;
         
-        if(arr[n][r]!=-1)
-        {
-            return arr[n][r];
-        }
-        return arr[n][r] =  ncr(n-1,r-1) + ncr(n-1,r);
+        if(r > n) return 0;
+        
+        if(arr[n][r] != -1) return arr[n][r];
+    
+        arr[n][r] = ncr(n-1, r-1) + ncr(n-1, r);
+        
+        return arr[n][r];
     }
 }

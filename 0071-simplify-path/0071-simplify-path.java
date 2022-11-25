@@ -30,17 +30,18 @@ class Solution {
 
         // System.out.println(stack);
 
-        String dir = "/";
+        StringBuilder dir = new StringBuilder("/");
         
         if (!stack.isEmpty()) 
-            dir += stack.pop();
+            dir.append(stack.pop());
         
         while (!stack.isEmpty()) {
             // System.out.println(dir);
-            dir = "/" + stack.pop() + dir;
+            // dir = "/" + stack.pop() + dir;
+            dir.insert(0,("/"+stack.pop()));
             // System.out.println(st);
         }
 
-        return dir;
+        return dir.toString();
     }
 }

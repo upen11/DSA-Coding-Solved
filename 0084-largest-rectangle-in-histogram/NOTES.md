@@ -1,1 +1,1 @@
-​
+maintaining 2 array for left min index and rigth min index, finding range and calculating max Area

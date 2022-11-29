@@ -34,52 +34,50 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    
+    // 4
+    // 2 6 2 3  O/P: 5
+    // 20
+    // 16 4 14 27 18 28 20 29 19 23 21 12 6 9 24 3 30 8 22 17  O/P: 34
     public static int numoffbt(int arr[], int n)
     {
          // Your code goes here
-         //s1 
-         int max = Integer.MIN_VALUE;
-         int min = Integer.MAX_VALUE;
-         for(int i =0; i<n; i++)
-         {
-             max= Math.max(max, arr[i]);
-             min = Math.min(min, arr[i]);
-         }
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        final int mod = 1000000007;
          
-         //s2
-         int mark[]  = new int[max+1];
-         int value[] = new int[max+1];
-         
-         for(int i=0; i<n; i++)
-         {
-             mark[arr[i]]=1; // marking that these ele ar per in given arr
-             value[arr[i]] =1; // bcoz inti ans will be 1 for each node
-         }
-         
-         //s3
-         int ans=0;
-         int mod = 1000000007;
-         for(int i=min; i<=max; i++)
-         {
-             if(mark[i]!=0)
-             {
-                 //have to find the multiple of i
-                 for(int j=i+i; j<=max && j/i<=i; j=j+i)
-                 {
-                     if(mark[j]!=0)
-                     {
-                     // 2cases
-                         if(i==j/i)
-                         value[j] = (value[j] + (value[i]*value[j/i])%mod)%mod;
-                         
-                         if(i!=j/i)
-                             value[j] = (value[j] + 2*(value[i]*value[j/i])%mod)%mod;
-                     }
-                 }
-             }
-             ans = (ans + value[i])%mod;
-         }
-         return ans;
+        // finding min and max elements in the array 
+        for(int i=0; i<n; i++) {
+            min = Math.min(min, arr[i]);
+            max = Math.max(max, arr[i]);
+        }
+        
+        // visited array tells us if the number is present in the array or not (index is used as numbers)
+        // max+1 cause indexing starts from 0 and array goes till max value
+        int[] visited = new int[max+1];
+        // value array stores how many binary trees can be made
+        int[] value = new int[max+1];
+        
+        for(int i=0; i<n; i++) {
+            visited[arr[i]] = 1; // 1 = number is present in array
+            value[arr[i]] = 1; // one node can make 1 binary tree
+        }
+        
+        int sum = 0;
+        for(int i=min; i<=max; i++) {
+            if(visited[i] == 0) continue;
+            for(int j=2; i*j <= max && j<=i; j++) {
+                if(visited[i*j] == 0) continue; // if multiple is there, then only proceed
+                
+                value[i*j] = (value[i*j] + (value[i] * value[j])%mod)%mod;  // storing i*j values in value array
+                
+                if(i != j) {
+                  value[i*j] = (value[i*j] + (value[i] * value[j])%mod)%mod; 
+                }
+            }
+            
+            sum += value[i];    // summing for ith element in values
+        }
+        
+        return sum % mod;
     }
 }

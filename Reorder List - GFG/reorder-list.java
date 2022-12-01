@@ -84,62 +84,60 @@ class Node {
     }
 }*/
 
-// Tc: o(n
-// Sc: O(1)
 class Solution {
     Node reorderlist(Node head) {
         // Your code here
-        //s1
-        Node slow = head; Node fast = slow.next;
-        while(fast!=null && fast.next!=null) // n/2
-        {
-            slow=slow.next;
-            fast=fast.next.next;
+        if(head == null || head.next == null) return head;
+        
+        Node l1 = head;
+        
+        // step1: finding middle of the LL
+        Node mid = middleElement(head);
+        
+        Node l2 = mid.next; // l2 will point to second part of LL
+        
+        mid.next = null; // mid will always be the last element
+        
+        // step2: reversing the second part of the LL after middle element
+        l2 = reversingLL(l2);
+        
+        // step3: traversing both lists and then reordering it
+        while(l2 != null) {
+            Node temp1 = l1.next;
+            l1.next = l2;
+            Node temp2 = l2.next;
+            l2.next = temp1;
+            l2 = temp2;
+            l1 = temp1;
         }
         
-        Node l1 = head; // 1>2>3
-        Node l2 = slow.next; //4>5
-        slow.next=null;
-        
-        //s2
-        l2 = reverse(l2);
-        
-        // s3 merger
-        Node ans = new Node(0);
-        Node curr=ans;
-        
-        while(l1!=null || l2!=null) //n/2
-        {
-            if(l1!=null)
-            {
-                curr.next =l1;
-                curr=curr.next;
-                l1 = l1.next;
-            }
-            
-             if(l2!=null)
-            {
-                curr.next =l2;
-                curr=curr.next;
-                l2 = l2.next;
-            }
-        }
-        return ans.next;
+        return head;
     }
     
-    //s2 rev
-    Node reverse(Node head )
-    {
-        Node prev= null; Node curr = head,next;
-        while(curr!=null)
-        {
-            next = curr.next;
-            
-            // 3 steps
+    Node middleElement(Node head) {
+        Node slowPointer = head;
+        Node fastPointer = head;
+        
+        while(fastPointer != null && fastPointer.next != null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        
+        return slowPointer;
+    }
+    
+    Node reversingLL(Node l2) {
+        Node prev = null;
+        Node nextNode = null;
+        Node curr = l2;
+        
+        while(curr != null) {
+            nextNode = curr.next;
             curr.next = prev;
             prev = curr;
-            curr=  next;
+            curr = nextNode;
         }
-        return prev;
+        
+        return prev;   // at last curr will point at null and prev to last node
     }
 }

@@ -9,19 +9,32 @@
  * }
  */
 class Solution {
+
     public ListNode middleNode(ListNode head) {
-        
-        if(head.next == null) {
-            return head;
-        }
-        
-        ListNode fast = head.next.next;
-        
-        while(fast != null && fast.next != null) {
-            head = head.next;
+        if (head == null || head.next == null) return head;
+
+        // when both slow and fast starts from head then slow points to right mid at the end
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
             fast = fast.next.next;
         }
-        
-        return head.next;
+
+        return slow;
     }
 }
+//     public ListNode middleNode(ListNode head) {
+//         if (head.next == null) {
+//             return head;
+//         }
+//         ListNode fast = head.next.next;
+//         while (fast != null && fast.next != null) {
+//             head = head.next;
+//             fast = fast.next.next;
+//         }
+//         System.out.println(head.val);
+//         return head.next;
+//     }
+// }

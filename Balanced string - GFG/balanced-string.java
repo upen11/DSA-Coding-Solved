@@ -38,12 +38,7 @@ class Solution {
         
         while(N > 0) {
             
-            if(N > 26) {
-                n = 26;
-            }
-            else {
-                n = N;
-            }
+            n = (N > 26) ? 26 : N;
             
             sb = result(n, sb);
             
@@ -61,14 +56,11 @@ class Solution {
             for(int i=0; i<N/2; i++) {
                 sb.append((char)(i+97));
             }
-
-            StringBuilder rev = new StringBuilder();
-            for(int j=122; j>122-(N/2); j--) {
-                rev.append((char)(j));
-            }
             
-            rev.reverse();
-            sb.append(rev);
+            // added +1 to j because the last 122 is also included 
+            for(int j=122-(N/2)+1; j<=122; j++) {
+                sb.append((char)(j));
+            }
         }
         // odd
         else {
@@ -77,28 +69,20 @@ class Solution {
                 for(int i=0; i<(N+1)/2; i++) {
                     sb.append((char)(i+97));
                 }
-            
-                StringBuilder rev = new StringBuilder();
-                for(int j=122; j>122-(N-1)/2; j--) {
-                    rev.append((char)(j));
+                
+                for(int j=122-(N-1)/2+1; j<=122; j++) {
+                    sb.append((char)(j));
                 }
-            
-                rev.reverse();
-                sb.append(rev);
             }
             // sumOfDigit = odd
             else {
                 for(int i=0; i<(N-1)/2; i++) {
                     sb.append((char)(i+97));
                 }
-            
-                StringBuilder rev = new StringBuilder();
-                for(int j=122; j>122-(N+1)/2; j--) {
-                    rev.append((char)(j));
+                
+                for(int j=122-(N+1)/2+1; j<=122; j++) {
+                    sb.append((char)(j));
                 }
-            
-                rev.reverse();
-                sb.append(rev);
             }
             
         }

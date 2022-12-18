@@ -11,7 +11,7 @@ class Solution {
         for (int i = n - 2; i >= 0; i--) {
             int sum = 0;
 
-            System.out.println(stack);
+            // System.out.println(stack);
             if (!stack.isEmpty() && temperatures[stack.peek()] > temperatures[i]) {
                 ans[i] = 1;
             } else {

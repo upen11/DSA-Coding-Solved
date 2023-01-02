@@ -2,39 +2,36 @@ class Solution {
 
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> freq = new HashMap<>();
-        
+
+        int maxFreq = 0;
         for (int i : nums) {
             freq.put(i, freq.getOrDefault(i, 0) + 1);
+            int frequency = freq.get(i);
+            maxFreq = Math.max(frequency, maxFreq);
         }
 
-        List<Integer> list = new ArrayList<>();
-        int max = 0;
-        while(k-- > 0) {
-            max = maxFreq(freq);
-            list.add(max);
-        }
-        
-        int[] ans = new int[list.size()];
-        
-        for(int i=0; i<ans.length; i++) {
-            ans[i] = list.get(i);
-        }
-        
-        return ans;
+        List<Integer>[] bucket = new List[maxFreq + 1];
 
-    }
-    
-    int maxFreq(Map<Integer, Integer> freq) {
-        int max = 0;
-        int num = 0;
-        for(int f : freq.keySet()) {
-            if(max < freq.get(f)) {
-                max = freq.get(f);
-                num = f;
+        for (int key : freq.keySet()) {
+            int fq = freq.get(key);
+            if (bucket[fq] == null) {
+                bucket[fq] = new ArrayList<>();
+            }
+            bucket[fq].add(key);
+        }
+        
+        // for (List<Integer> i : bucket) System.out.println(i);
+
+        int[] a = new int[k];
+        int ind = 0;
+        for (int i = maxFreq; i > 0 && k > 0; i--) {
+            if (bucket[i] != null) {
+                for (int j = 0; j < bucket[i].size(); j++) {
+                    a[ind++] = bucket[i].get(j);
+                    k--;
+                }
             }
         }
-        
-        freq.remove(num);
-        return num;
+        return a;
     }
 }

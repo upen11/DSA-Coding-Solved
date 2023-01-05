@@ -6,8 +6,6 @@ class Solution {
         }
 
         int minInd = findMin(nums);
-        
-        System.out.println(minInd);
 
         int start = 0;
         int end = nums.length - 1;

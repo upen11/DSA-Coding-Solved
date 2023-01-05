@@ -21,7 +21,8 @@ class Solution {
         while (start <= end) {
             int mid = start + (end - start) / 2;
 
-            if (nums[mid] == target) return mid; else if (nums[mid] > target) {
+            if (nums[mid] == target) return mid; 
+            else if (nums[mid] > target) {
                 end = mid - 1;
             } else {
                 start = mid + 1;
@@ -44,10 +45,10 @@ class Solution {
 
             if (nums[mid - 1] > nums[mid]) return mid;
 
-            if (nums[0] <= nums[mid]) {
+            if (nums[0] < nums[mid]) {
                 // means this part is sorted
                 start = mid + 1;
-            } else if (nums[0] > nums[mid]) {
+            } else if (nums[0] >= nums[mid]) {
                 // means this part is not sorted and mau contain minimum
                 end = mid;
             }

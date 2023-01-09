@@ -1,7 +1,33 @@
 class Solution {
 
-     // T: O(N * M)
+    // time complexity is O(m*n) or O(sum of all chars in strs). 
+    // Use char[26] as bucket to count the frequency instead of Arrays.sort, this can reduce the O(nlgn) to O(n) when calculate the key.
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null || strs.length == 0) return new LinkedList<>();
+
+        HashMap<String, LinkedList<String>> map = new HashMap<>();
+
+        for (String s : strs) {
+            char[] chArr = new char[26];
+
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                chArr[c - 'a']++;
+            }
+
+            String encodedKey = new String(chArr);
+
+            LinkedList<String> list = map.getOrDefault(encodedKey, new LinkedList<>());
+
+            list.add(s);
+            map.put(encodedKey, list);
+        }
+
+        return new LinkedList<>(map.values());
+    }
+    // T: O(N * M)
     // S: O(N)
+    /*    
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ans = new ArrayList<>();
 
@@ -37,9 +63,9 @@ class Solution {
 
         return ans;
     }
-    
-    
-    // T: O(N log N)
+    */
+
+    // T: O(N log M)
     // S: O(N)
     /*
     public List<List<String>> groupAnagrams(String[] strs) {

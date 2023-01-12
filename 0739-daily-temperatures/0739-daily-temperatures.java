@@ -1,30 +1,20 @@
 class Solution {
 
     // [89,62,70,58,47,47,46,76,100,70]
+    // consider for duplicates too
     public int[] dailyTemperatures(int[] temperatures) {
-        Stack<Integer> stack = new Stack<>();
         int n = temperatures.length;
-
+        Stack<Integer> stack = new Stack<>();
+        stack.push(n - 1);
         int[] ans = new int[n];
-        stack.add(n - 1);
-        ans[n - 1] = 0;
+
         for (int i = n - 2; i >= 0; i--) {
-            int sum = 0;
+            while (!stack.isEmpty() && (temperatures[i] >= temperatures[stack.peek()])) 
+                stack.pop();
 
-            // System.out.println(stack);
-            if (!stack.isEmpty() && temperatures[stack.peek()] > temperatures[i]) {
-                ans[i] = 1;
-            } else {
-                while (!stack.isEmpty() && temperatures[stack.peek()] <= temperatures[i]) {
-                    stack.pop();
-                }
-                if (stack.isEmpty()) {
-                    ans[i] = 0;
-                } else {
-                    ans[i] = stack.peek() - i;
-                }
+            if (!stack.isEmpty()) {
+                ans[i] = stack.peek() - i;
             }
-
             stack.push(i);
         }
 

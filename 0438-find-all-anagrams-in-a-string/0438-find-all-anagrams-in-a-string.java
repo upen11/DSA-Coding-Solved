@@ -3,32 +3,33 @@ class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> res = new LinkedList<>();
 
-        // p should be smaller than s
-        if(p.length() > s.length()) return res;
-        
+        if (p.length() > s.length()) return res;
+
+        Map<Character, Integer> pFreq = new HashMap<>();
+        Map<Character, Integer> sFreq = new HashMap<>();
+
         int p1 = 0;
         int p2 = p.length() - 1;
 
-        int[] sFreq = new int[26];
-        int[] pFreq = new int[26];
-
         for (int i = 0; i < p.length(); i++) {
-            pFreq[p.charAt(i) - 'a']++;
-            sFreq[s.charAt(i) - 'a']++;
+            pFreq.put(p.charAt(i), pFreq.getOrDefault(p.charAt(i), 0) + 1);
+            sFreq.put(s.charAt(i), sFreq.getOrDefault(s.charAt(i), 0) + 1);
         }
 
-        sFreq[s.charAt(p2) - 'a']--;
+        if (sFreq.get(s.charAt(p2)) == 1) 
+            sFreq.remove(s.charAt(p2)); 
+        else 
+            sFreq.put(s.charAt(p2), sFreq.getOrDefault(s.charAt(p2), 0) - 1);
 
-        boolean flag = false;
-        for (int i = 0; i <= s.length() - p.length(); i++) {
-            sFreq[s.charAt(p2) - 'a']++;
-            flag = isAnagram(sFreq, pFreq);
+        for (int i = 0; i < s.length() - p.length() + 1; i++) {
+            sFreq.put(s.charAt(p2), sFreq.getOrDefault(s.charAt(p2), 0) + 1);
 
-            if (flag) {
-                res.add(i);
-            }
+            if (matches(pFreq, sFreq)) res.add(i);
 
-            sFreq[s.charAt(p1)-'a']--;
+            if (sFreq.get(s.charAt(p1)) == 1) 
+                sFreq.remove(s.charAt(p1)); 
+            else 
+                sFreq.put(s.charAt(p1), sFreq.getOrDefault(s.charAt(p1), 0) - 1);
 
             p1++;
             p2++;
@@ -37,10 +38,12 @@ class Solution {
         return res;
     }
 
-    public boolean isAnagram(int[] sFreq, int[] pFreq) {
-        for (int i = 0; i < 26; i++) {
-            if (sFreq[i] != pFreq[i]) return false;
+    public boolean matches(Map<Character, Integer> s1Freq, Map<Character, Integer> s2Freq) {
+        for (char key : s1Freq.keySet()) {
+            if (s1Freq.get(key) - s2Freq.getOrDefault(key, -1) != 0)
+                return false;
         }
+
         return true;
     }
 }

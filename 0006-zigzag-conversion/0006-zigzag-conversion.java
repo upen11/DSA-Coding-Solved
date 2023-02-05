@@ -1,43 +1,35 @@
 class Solution {
 
     public String convert(String s, int numRows) {
-        
-        if(numRows == 1) return s;
-        
+        if (numRows == 1) return s;
+
         int n = s.length();
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i<numRows; i++) {
- 
+        for (int row = 0; row < numRows; row++) {
             boolean flag = false;
             int jump = 0;
             int cut = 0;
-            int index = i;
-            while(index < n) {
-                if(i == 0 || i == numRows-1) {
-                    sb.append(s.charAt(index));
-                    jump = 2 * (numRows - 1);
-                }
-                else {
-                    sb.append(s.charAt(index));
-                    if(flag == false) {
-                        cut = 2 * i;
-                        jump = 2 * (numRows - 1) - cut;
+            int index = row;
+            while (index < n) {
+                sb.append(s.charAt(index));
+                jump = 2 * (numRows - 1);
+                
+                if (row != 0 && row != numRows - 1) {
+                    if (flag == false) {
+                        cut = 2 * row;
+                        jump -= cut;
                         flag = true;
-                    }
-                    else {
+                    } else {
                         jump = cut;
                         flag = false;
                     }
-                    
                 }
                 index += jump;
             }
         }
-        
+
         return sb.toString();
     }
-    
-    
     /*
     public String convert(String s, int numRows) {
         if (numRows == 1) return s;

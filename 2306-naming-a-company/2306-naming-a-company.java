@@ -27,10 +27,12 @@ class Solution {
                 Set<String> l1 = hm.get(list.get(i));
                 Set<String> l2 = hm.get(list.get(j));
 
-                Object[] arr = l1.toArray();
+                // Object[] arr = l1.toArray();
+                List<String> li = new ArrayList<>(l1);
                 long dup = 0;
                 for (int k = 0; k < l1.size(); k++) {
-                    if (l2.contains(arr[k])) {
+                    // if (l2.contains(arr[k])) {
+                    if(l2.contains(li.get(k))) {
                         dup++;
                     }
                 }

@@ -33,13 +33,8 @@ class Solution {
 
         int i = inorderMap.get(val);
 
-        if (i > start) {
-            node.left = helper(preorder, inorderMap, start, i - 1, idx + 1);
-        }
-        
-        if (i < end) {
-            node.right = helper(preorder, inorderMap, i + 1, end, idx + i - start + 1);
-        }
+        node.left = helper(preorder, inorderMap, start, i - 1, idx + 1);
+        node.right = helper(preorder, inorderMap, i + 1, end, idx + 1 + (i - start));
 
         return node;
     }

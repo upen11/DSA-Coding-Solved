@@ -25,22 +25,24 @@ class Solution {
 
         while (!queue.isEmpty()) {
             int size = queue.size();
-            List<Integer> level = new LinkedList<>();
+            // List<Integer> level = new LinkedList<>();
 
+            TreeNode node = null;
+            
             for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
+                node = queue.poll();
+                
                 if (node == null) continue;
 
-                level.add(node.val);
+                // level.add(node.val);
 
                 if (node.left != null) queue.add(node.left);
 
                 if (node.right != null) queue.add(node.right);
             }
 
-            // temp.add(level);
-
-            ans.add(level.get(level.size() - 1));
+            // ans.add(level.get(level.size() - 1));
+            ans.add(node.val);
         }
 
         return ans;

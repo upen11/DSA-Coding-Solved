@@ -17,9 +17,25 @@ class Solution {
 
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
-        if (root == null) return ans;
 
-        // bfs
+        preOrder(root, 1, ans);
+
+        return ans;
+    }
+
+    //dfs
+    public void preOrder(TreeNode root, int level, List<Integer> ans) {
+        if (root == null) return;
+
+        if (ans.size() < level) ans.add(root.val);
+
+        preOrder(root.right, level + 1, ans);
+
+        preOrder(root.left, level + 1, ans);
+    }
+    
+    // bfs
+    /*
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
@@ -47,4 +63,5 @@ class Solution {
 
         return ans;
     }
+    */
 }

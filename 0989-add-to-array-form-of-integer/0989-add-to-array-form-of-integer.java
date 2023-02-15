@@ -1,7 +1,7 @@
 class Solution {
 
     public List<Integer> addToArrayForm(int[] num, int k) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = new LinkedList<>();
 
         int len = num.length - 1;
         int sum = 0;

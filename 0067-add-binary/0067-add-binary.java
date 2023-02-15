@@ -19,22 +19,23 @@ class Solution {
             }
 
             sum = x + y + carry;
+            sb.append(sum % 2);
+            carry = sum / 2;
             
-            if (sum == 0 || sum == 1) {
-                carry = 0;
-            } else if (sum == 2) {
-                sum = 0;
-                carry = 1;
-            } else if (sum == 3) {
-                sum = 1;
-                carry = 1;
-            }
+            // if (sum == 0 || sum == 1) {
+            //     carry = 0;
+            // } else if (sum == 2) {
+            //     sum = 0;
+            //     carry = 1;
+            // } else if (sum == 3) {
+            //     sum = 1;
+            //     carry = 1;
+            // }
 
-            sb.append(String.valueOf(sum));
         }
-        
+
         // important
-        if(carry == 1) sb.append("1");
+        if (carry == 1) sb.append(1);
 
         return sb.reverse().toString();
     }

@@ -15,6 +15,35 @@
  */
 class Solution {
 
+    public int countNodes(TreeNode root) {
+        if (root == null) return 0;
+
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+
+    public boolean dfs(TreeNode root, int index, int totalNodes) {
+        if (root == null) return true;
+
+        if (index > totalNodes) return false;
+
+        return dfs(root.left, 2 * index, totalNodes) && dfs(root.right, 2 * index + 1, totalNodes);
+    }
+
+    // DFS
+    public boolean isCompleteTree(TreeNode root) {
+        // Total number of nodes
+        // DFS --> L.C 2 * i
+        //         R.C 2 * i + 1
+        
+        // if (index > totalNodes) means not complete binary tree
+
+        int totalNodes = countNodes(root);
+
+        return dfs(root, 1, totalNodes);
+    }
+    
+    // BFS
+    /*
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
 
@@ -37,4 +66,5 @@ class Solution {
 
         return true;
     }
+    */
 }

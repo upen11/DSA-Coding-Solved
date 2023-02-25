@@ -1,42 +1,26 @@
 class Solution {
 
     public int findShortestSubArray(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> freq = new HashMap<>();
+        Map<Integer, Integer> left = new HashMap<>();
+        Map<Integer, Integer> right = new HashMap<>();
 
-        int max = Integer.MIN_VALUE;
+        int maxDegree = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            freq.put(nums[i], freq.getOrDefault(nums[i], 0) + 1);
 
-        for (int i : nums) {
-            map.put(i, map.getOrDefault(i, 0) + 1);
+            if (left.get(nums[i]) == null) left.put(nums[i], i);
 
-            max = Math.max(map.get(i), max);
-        }
+            right.put(nums[i], i);
 
-        Set<Integer> set = new HashSet<>();
-
-        for (Integer i : map.keySet()) {
-            if (map.get(i) == max) {
-                set.add(i);
-            }
+            maxDegree = Math.max(maxDegree, freq.get(nums[i]));
         }
 
         int ans = Integer.MAX_VALUE;
-        for (Integer i : set) {
-            int count = 0;
-            int freq = 0;
-            
-            for (int j = 0; j < nums.length; j++) {
-                if (nums[j] == i) freq++;
-                
-                if(freq == 0) {
-                    continue;
-                }
-                
-                count++;
-
-                if (freq == max) break;
+        for (int i : freq.keySet()) {
+            if (freq.get(i) == maxDegree) {
+                ans = Math.min(ans, right.get(i) - left.get(i) + 1);
             }
-
-            ans = Math.min(count, ans);
         }
 
         return ans;

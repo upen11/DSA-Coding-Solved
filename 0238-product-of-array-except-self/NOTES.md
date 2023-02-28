@@ -1,1 +1,1 @@
-​
+res[i] *= right;    // res[last index] stores left value

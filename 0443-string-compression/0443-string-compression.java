@@ -7,6 +7,35 @@ class Solution {
 
         if (chars.length == 1) return 1;
 
+        int count = 1;
+        int j = 1;
+        char lastCh = chars[0];
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] == lastCh) {
+                count++;
+            } else {
+                if (count > 1) {
+                    String countInStr = String.valueOf(count);
+                    for (int k = 0; k < countInStr.length(); k++) {
+                        chars[j++] = countInStr.charAt(k);
+                    }
+                }
+                count = 1;
+                lastCh = chars[i];
+                chars[j++] = chars[i];
+            }
+        }
+
+        if (count > 1) {
+            String countInStr = String.valueOf(count);
+            for (int k = 0; k < countInStr.length(); k++) {
+                chars[j++] = countInStr.charAt(k);
+            }
+        }
+
+        return j;
+    }
+    /*
         List<String> list = new ArrayList<>();
 
         list.add(chars[0] + "");
@@ -56,4 +85,6 @@ class Solution {
 
         return list.size();
     }
+    */
+
 }

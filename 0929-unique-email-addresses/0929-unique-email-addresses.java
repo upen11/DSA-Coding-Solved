@@ -8,19 +8,18 @@ class Solution {
             sb = new StringBuilder();
 
             boolean flag = false;
-            int i = -1;
-            while (s.charAt(++i) != '@') {
+            int i = 0;
+            while (s.charAt(i) != '@') {
                 if (s.charAt(i) == '+') {
                     flag = true;
                 }
-
-                if (s.charAt(i) == '.') {
-                    continue;
-                } else if (flag == true) {
-                    continue;
+                if (flag == true || (s.charAt(i) == '.')) {
+                    // continue; will not use i++ on line 22 and return with same i;
                 } else {
                     sb.append(s.charAt(i));
                 }
+                
+                i++;
             }
 
             while (i < s.length()) {

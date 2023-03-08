@@ -13,14 +13,8 @@ class Solution {
             int hrs = 0;
             for (int i = 0; i < piles.length; i++) {
                 int d = piles[i] / mid;
-
-                if (d == 0) {
-                    hrs++;
-                } else if (d > 0) {
-                    hrs += d;
-                    if (piles[i] % mid != 0) 
-                        hrs++;
-                }
+                hrs += d;
+                if (piles[i] % mid != 0) hrs++;
 
                 if (hrs > h) {
                     break;

@@ -22,15 +22,15 @@ class Solution {
     }
 
     public boolean traversal(TreeNode node1, TreeNode node2) {
-        if (node1 == null && node2 != null) return false;
+        if (node1 == null && node2 == null) return true;
 
-        if (node2 == null && node1 != null) return false;
+        if (node1 == null || node2 == null) return false;
 
-        if (node1 == node2) return true;
+        if (node1.val != node2.val) return false;
 
         boolean flag1 = traversal(node1.left, node2.right);
         boolean flag2 = traversal(node1.right, node2.left);
 
-        if (flag1 == true && flag2 == true) return node1.val == node2.val; else return false;
+        return flag1 && flag2;
     }
 }

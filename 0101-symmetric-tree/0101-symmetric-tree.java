@@ -16,21 +16,21 @@
 class Solution {
 
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return false;
+        if (root == null) return true;
 
-        TreeNode A = root.left;
-        TreeNode B = root.right;
-
-        return isSymm(A, B);
+        return traversal(root.left, root.right);
     }
 
-    public boolean isSymm(TreeNode A, TreeNode B) {
-        if (A == null && B == null) return true;
+    public boolean traversal(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 != null) return false;
 
-        if (A == null || B == null) return false;
+        if (node2 == null && node1 != null) return false;
 
-        if (A.val != B.val) return false;
+        if (node1 == node2) return true;
 
-        return isSymm(A.left, B.right) && isSymm(A.right, B.left);
+        boolean flag1 = traversal(node1.left, node2.right);
+        boolean flag2 = traversal(node1.right, node2.left);
+
+        if (flag1 == true && flag2 == true) return node1.val == node2.val; else return false;
     }
 }

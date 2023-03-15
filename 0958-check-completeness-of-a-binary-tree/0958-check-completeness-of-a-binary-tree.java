@@ -14,25 +14,44 @@
  * }
  */
 class Solution {
+
+    public int countNodes(TreeNode root) {
+        if (root == null) return 0;
+
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+
     public boolean isCompleteTree(TreeNode root) {
-        
-        int nodes = count(root);
-        
-        return dfs(root, 1, nodes);
-    }
-    
-    public int count(TreeNode root) {
-        if(root == null) return 0;
-        
-        return 1 + count(root.left) + count(root.right);
-    }
-    
-    public boolean dfs(TreeNode root, int ind, int nodes) {
-        if(root == null) return true;
-        
-        if(ind > nodes) return false;
-        
-        return dfs(root.left, ind * 2, nodes) && dfs(root.right, ind * 2 + 1, nodes);
-        
+        //bfs
+        // count num of nodes then we will check if there is any who is null in b/w
+
+        int count = countNodes(root);
+
+        System.out.println(count);
+
+        // return false;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                // System.out.println(node.val);
+
+                if (node != null) count--;
+
+                if (node == null && count == 0) return true;
+
+                if (node == null && count > 0) return false;
+
+                queue.add(node.left);
+                queue.add(node.right);
+            }
+        }
+
+        return true;
     }
 }

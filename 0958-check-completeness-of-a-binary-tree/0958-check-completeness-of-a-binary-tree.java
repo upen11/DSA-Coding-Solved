@@ -27,7 +27,7 @@ class Solution {
 
         int count = countNodes(root);
 
-        System.out.println(count);
+        // System.out.println(count);
 
         // return false;
 
